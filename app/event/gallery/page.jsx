@@ -28,7 +28,7 @@ export default function EventGallery() {
           <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center p-8">
             <div className="text-white ">
               <h1 className="text-4xl md:text-7xl font-bold mb-4 leading-tight ml-[700PX]">
-               Gallary
+               Gallery
               </h1>
             </div>
           </div>

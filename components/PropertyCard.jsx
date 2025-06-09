@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from "framer-motion";
+import Image from "next/image";
 import {
   Card,
   CardHeader,
@@ -33,11 +34,15 @@ export default function PropertyCard({ property, index }) {
     >
       <Card className="h-full">
         <CardHeader className="p-0">
-          <img
-            src={property.attributes.Image.data.attributes.url}
-            alt={property.attributes.Image.data.attributes.alternativeText}
-            className="w-full h-48 object-cover"
-          />
+          <div className="relative w-full h-48">
+            <Image
+              src={property.attributes.Image.data.attributes.url}
+              alt={property.attributes.Image.data.attributes.alternativeText}
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            />
+          </div>
         </CardHeader>
         <CardContent className="p-6">
           <CardTitle className="text-xl font-semibold mb-2 dark:text-white">

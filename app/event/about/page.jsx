@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -31,10 +32,13 @@ function About() {
       {/* Hero Section */}
       <section className="hero-section relative w-full h-[50vh] pt-20 ">
         <div className="relative w-full h-full">
-          <img
+          <Image
             src="/aboutEvent/bg.webp"
             alt="About Us Hero"
-            className="w-full h-full object-cover"
+            fill
+            priority
+            className="object-cover"
+            sizes="100vw"
           />
           <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center p-8">
             <div className="text-white ">
@@ -70,7 +74,7 @@ function About() {
             </p>
             <p className="text-lg text-gray-600 leading-relaxed dark:text-gray-300">
               We pride ourselves on understanding our clients' unique needs and
-              turning their ideas into extraordinary realities. Whether it’s a
+              turning their ideas into extraordinary realities. Whether it's a
               corporate gathering, a glamorous fashion show, or a heartfelt
               charity event, we are passionate about delivering excellence every
               step of the way.
@@ -83,12 +87,14 @@ function About() {
           whileInView="visible"
           viewport={{ once: true }}
           variants={imageSlideRight}
-          className="w-full h-full"
+          className="relative w-full h-[400px]"
         >
-          <img
+          <Image
             src="/aboutEvent/large_3_W7_A9014_1_cb772560c0.jpg"
             alt="About Sara Events"
-            className="rounded-xl shadow-xl w-full h-[400px] object-cover"
+            fill
+            className="rounded-xl shadow-xl object-cover"
+            sizes="(max-width: 768px) 100vw, 50vw"
           />
         </motion.div>
       </section>
@@ -331,10 +337,12 @@ function About() {
             >
               <div className="relative">
                 <div className="absolute -top-6 -right-6 w-full h-full bg-[#137a70] bg-opacity-20 rounded-2xl"></div>
-                <img
+                <Image
                   src="/aboutEvent/whyUs.jpg"
                   alt="Why Choose Us"
-                  className="relative rounded-2xl shadow-xl w-full h-[500px] object-cover"
+                  fill
+                  className="relative rounded-2xl shadow-xl object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </div>
             </motion.div>

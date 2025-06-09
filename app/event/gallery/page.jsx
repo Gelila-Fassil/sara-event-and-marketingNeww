@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from 'react';
+import Image from 'next/image';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { motion } from 'framer-motion';
@@ -20,10 +21,13 @@ export default function EventGallery() {
 
       <section className="hero-section relative w-full h-[50vh] pt-20 ">
         <div className="relative w-full h-full">
-          <img
+          <Image
             src="/aboutEvent/bg.webp"
             alt="About Us Hero"
-            className="w-full h-full object-cover"
+            fill
+            priority
+            className="object-cover"
+            sizes="100vw"
           />
           <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center p-8">
             <div className="text-white ">
@@ -56,13 +60,15 @@ export default function EventGallery() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="relative group cursor-pointer"
+                  className="relative group cursor-pointer h-64"
                   onClick={() => openLightbox(index)}
                 >
-                  <img
+                  <Image
                     src={img.url}
-                    // alt={img.attributes.alternativeText}
-                    className="w-full h-64 object-cover rounded-lg transition-transform duration-300 group-hover:scale-105"
+                    alt={`Gallery Image ${index + 1}`}
+                    fill
+                    className="object-cover rounded-lg transition-transform duration-300 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                   <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-opacity duration-300 rounded-lg flex items-center justify-center">
                     <span className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -96,11 +102,15 @@ export default function EventGallery() {
             >
               ›
             </button>
-            <img
-              src={gallery[selectedImageIndex].url}
-              // alt={galleryImages[selectedImageIndex].attributes.alternativeText}
-              className="max-w-[90%] max-h-[90vh] object-contain"
-            />
+            <div className="relative w-[90%] h-[90vh]">
+              <Image
+                src={gallery[selectedImageIndex].url}
+                alt={`Gallery Image ${selectedImageIndex + 1}`}
+                fill
+                className="object-contain"
+                sizes="90vw"
+              />
+            </div>
           </div>
         )}
       </main>

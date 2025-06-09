@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { mockFooterData } from "@/app/property/mockData";
 
 function Footer() {
@@ -13,9 +14,11 @@ function Footer() {
           {/* Logo and Description */}
           <div className="space-y-4">
             <Link href="/" className="inline-block">
-              <img
+              <Image
                 src={logo.url}
                 alt={logo.alternativeText}
+                width={48}
+                height={48}
                 className="h-12 w-auto"
               />
             </Link>

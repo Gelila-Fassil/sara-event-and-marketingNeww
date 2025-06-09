@@ -134,10 +134,13 @@ export default function Home() {
           {HeroSlides.slides.map((slide, index) => (
             <SwiperSlide key={index}>
               <div className="relative w-full h-full">
-                <img
+                <Image
                   src={slide.imageUrl}
                   alt={slide.altText}
-                  className="w-full h-full object-cover"
+                  fill
+                  priority={index === 0}
+                  className="object-cover"
+                  sizes="100vw"
                 />
                 <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center p-8">
                   <div className="text-white text-left max-w-lg ml-12">

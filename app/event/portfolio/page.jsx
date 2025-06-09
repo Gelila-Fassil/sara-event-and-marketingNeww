@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -151,10 +152,13 @@ function Portfolio() {
       <Header />
       <section className="hero-section relative w-full h-[50vh]">
         <div className="relative w-full h-full">
-          <img
+          <Image
             src={mockPortfolioData.hero.backgroundImage}
             alt="portfolio"
-            className="w-full h-full object-cover"
+            fill
+            priority
+            className="object-cover"
+            sizes="100vw"
           />
           <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center p-8">
             <div className="text-white text-left max-w-lg ml-12">
@@ -198,19 +202,19 @@ function Portfolio() {
                 className="relative bg-white dark:bg-gray-800 pb-10 rounded-lg shadow-lg hover:shadow-2xl transition-all cursor-pointer transform hover:-translate-y-2 h-[400px] flex flex-col"
                 onClick={() => openLightbox(index)}
               >
-                {imageUrl && (
-                  <img
+                <div className="relative w-full h-[300px]">
+                  <Image
                     src={imageUrl}
-                    alt={image.data.attributes.alternativeText || title}
-                    className="w-full h-3/4 object-cover rounded-t-lg"
+                    alt={title}
+                    fill
+                    className="object-cover rounded-t-lg"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
                   />
-                )}
-                <main className="pt-1 pb-5 px-4">
-                  <h1 className="text-xl mt-2 font-medium capitalize font-semibold text-gray-900 dark:text-white">
-                    {title}
-                  </h1>
+                </div>
+                <div className="p-4">
+                  <h3 className="text-xl font-semibold mb-2 dark:text-white">{title}</h3>
                   <p className="text-gray-600 dark:text-gray-300">{description}</p>
-                </main>
+                </div>
               </div>
             );
           })}
@@ -218,34 +222,33 @@ function Portfolio() {
 
         {/* Lightbox */}
         {selectedImageIndex !== null && (
-          <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
+          <div className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50">
             <button
-              className="absolute top-6 right-6 hover:cursor-pointer bg-white text-black font-bold text-3xl px-3 rounded-full"
               onClick={closeLightbox}
+              className="absolute top-4 right-4 text-white text-2xl hover:text-gray-300"
             >
-              &times;
+              ×
             </button>
             <button
-              className="absolute left-4 top-1/2 transform -translate-y-1/2 z-50 bg-white text-black p-2 rounded-lg hover:cursor-pointer"
               onClick={showPrevImage}
+              className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white text-2xl hover:text-gray-300"
             >
-              &#10094;
+              ‹
             </button>
             <button
               onClick={showNextImage}
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 z-50 bg-white text-black p-2 rounded-lg hover:cursor-pointer"
+              className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white text-2xl hover:text-gray-300"
             >
-              &#10095;
+              ›
             </button>
-
-            <div className="relative w-[85%] h-[85%] mx-auto">
-              <div className="relative w-full h-full">
-                <img
-                  src={filteredGalleries[selectedImageIndex]?.attributes?.image?.data?.attributes?.url}
-                  alt={filteredGalleries[selectedImageIndex]?.attributes?.image?.data?.attributes?.alternativeText || "Selected"}
-                  className="rounded-lg object-cover w-full h-full"
-                />
-              </div>
+            <div className="relative w-[90%] h-[90vh]">
+              <Image
+                src={filteredGalleries[selectedImageIndex].attributes.image.data.attributes.url}
+                alt={filteredGalleries[selectedImageIndex].attributes.title}
+                fill
+                className="object-contain"
+                sizes="90vw"
+              />
             </div>
           </div>
         )}

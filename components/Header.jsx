@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 import { mockHeaderData } from "@/app/property/mockData";
@@ -54,10 +55,13 @@ function Header() {
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
           <Link href="/event" className="flex items-center">
-            <img
+            <Image
               src={logo.url}
               alt={logo.alternativeText}
+              width={48}
+              height={48}
               className="h-12 w-auto"
+              priority
             />
           </Link>
 

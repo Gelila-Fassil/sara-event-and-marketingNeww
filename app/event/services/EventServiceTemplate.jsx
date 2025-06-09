@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import Image from "next/image";
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -52,10 +53,13 @@ function EventServiceTemplate({ serviceData }) {
       <Header />
       <section className="hero-section relative w-full h-[50vh]">
         <div className="relative w-full h-full">
-          <img
+          <Image
             src={heroData?.image?.data?.attributes?.url}
             alt={heroData?.image?.data?.attributes?.alternativeText}
-            className="w-full h-full object-cover"
+            fill
+            priority
+            className="object-cover"
+            sizes="100vw"
           />
           <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
             <div className="text-center">
@@ -75,11 +79,15 @@ function EventServiceTemplate({ serviceData }) {
           <div>
             <div className="h-[50%]">
               {serviceDetail?.serviceImage?.data?.attributes?.url && (
-                <img
-                  src={serviceDetail.serviceImage.data.attributes.url}
-                  alt={serviceDetail.serviceImage.data.attributes.alternativeText}
-                  className="w-full h-[400px] object-cover"
-                />
+                <div className="relative w-full h-[400px]">
+                  <Image
+                    src={serviceDetail.serviceImage.data.attributes.url}
+                    alt={serviceDetail.serviceImage.data.attributes.alternativeText}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 70vw, 70vw"
+                  />
+                </div>
               )}
             </div>
           </div>
@@ -126,15 +134,15 @@ function EventServiceTemplate({ serviceData }) {
                   {galleryImages?.map((image, index) => (
                     <SwiperSlide key={index}>
                       <div
-                        className="relative group cursor-pointer"
+                        className="relative group cursor-pointer h-[300px]"
                         onClick={() => openLightbox(image)}
                       >
-                        <img
+                        <Image
                           src={image}
                           alt={`Gallery Image ${index + 1}`}
-                          width={500}
-                          height={300}
-                          className="rounded-lg shadow-lg dark:border dark:border-white w-full h-full object-cover group-hover:opacity-75"
+                          fill
+                          className="rounded-lg shadow-lg dark:border dark:border-white object-cover group-hover:opacity-75"
+                          sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 33vw"
                         />
                         <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                           <span className="text-white font-bold text-lg">
@@ -154,10 +162,12 @@ function EventServiceTemplate({ serviceData }) {
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
               <div className="relative w-[85%] h-[85%]">
                 <div className="relative w-full h-full">
-                  <img
+                  <Image
                     src={selectedImage}
                     alt="Selected Image"
-                    className="rounded-lg object-cover w-full h-full"
+                    fill
+                    className="rounded-lg object-cover"
+                    sizes="85vw"
                   />
                 </div>
                 <button

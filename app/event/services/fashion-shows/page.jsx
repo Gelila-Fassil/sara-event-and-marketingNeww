@@ -54,12 +54,16 @@ function FashionShow() {
       <Header />
       <section className="hero-section relative w-full h-[50vh] pt-20">
         <div className="relative w-full h-full">
-          <img
-            src={heroData?.image?.data?.attributes?.url}
-            alt={heroData?.image?.data?.attributes?.alternativeText}
-            className="w-full h-full object-cover"
+          <Image
+            src="/aboutEvent/bg.webp"
+            alt="background"
+            fill
+            priority
+            className="object-cover z-0"
+            sizes="100vw"
           />
-          <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+
+          <div className="flex items-center justify-center w-full h-full z-10 relative">
             <div className="text-center">
               <h1 className="text-4xl font-bold mb-4 text-white leading-tight uppercase">
                 {contactData?.serviceTitle?.title}
@@ -75,14 +79,14 @@ function FashionShow() {
       <section className="mt-10 mb-20">
         <div className="w-[96%] lg:w-[70%] pb-10 mx-auto shadow-lg dark:border border-[rgba(255,255,255,0.6)]">
           <div>
-            <div className="h-[50%]">
-              {contactData?.serviceImage?.data?.attributes?.url && (
-                <img
-                  src={contactData.serviceImage.data.attributes.url}
-                  alt={contactData.serviceImage.data.attributes.alternativeText}
-                  className="w-full h-[400px] object-cover"
-                />
-              )}
+            <div className="relative h-[400px]">
+              <Image
+                src={contactData?.serviceImage?.data?.attributes?.url}
+                alt={contactData?.serviceImage?.data?.attributes?.alternativeText}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 70vw, 70vw"
+              />
             </div>
           </div>
           <main className="mt-5 lg:px-4 px-2">
@@ -128,15 +132,15 @@ function FashionShow() {
                   {galleryImages?.map((image, index) => (
                     <SwiperSlide key={index}>
                       <div
-                        className="relative group cursor-pointer"
+                        className="relative group cursor-pointer h-[300px]"
                         onClick={() => openLightbox(image)}
                       >
-                        <img
+                        <Image
                           src={image}
-                          alt={`Fashion Show Gallery Image ${index + 1}`}
-                          width={500}
-                          height={300}
-                          className="rounded-lg shadow-lg dark:border dark:border-white w-full h-full object-cover group-hover:opacity-75"
+                          alt="Gallery Image"
+                          fill
+                          className="rounded-lg shadow-lg dark:border dark:border-white object-cover group-hover:opacity-75"
+                          sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 33vw"
                         />
                         <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                           <span className="text-white font-bold text-lg">
@@ -151,73 +155,53 @@ function FashionShow() {
             </div>
           </section>
 
-          {/* Lightbox Modal */}
           {selectedImage && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
               <div className="relative w-[85%] h-[85%]">
-                <div className="relative w-full h-full">
-                  <img
-                    src={selectedImage}
-                    alt="Selected Image"
-                    className="rounded-lg object-cover w-full h-full"
-                  />
-                </div>
+                <Image
+                  src={selectedImage}
+                  alt="Selected"
+                  fill
+                  className="rounded-lg object-contain"
+                  sizes="85vw"
+                />
+
                 <button
-                  className="absolute top-4 right-4 text-white bg-black bg-opacity-50 rounded-full p-2 hover:bg-opacity-75"
                   onClick={closeLightbox}
+                  className="absolute top-6 right-6 hover:cursor-pointer bg-white p-3 rounded-full"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M6 18L18 6M6 6l12 12"
-                    />
-                  </svg>
+                  <Image
+                    src="https://res.cloudinary.com/dkqlrnz6r/image/upload/v1732648286/x_solid_1_1_328c7cb152.svg"
+                    alt="Close"
+                    width={40}
+                    height={40}
+                    className="w-10 h-10"
+                  />
                 </button>
+
                 <button
-                  className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white bg-black bg-opacity-50 rounded-full p-2 hover:bg-opacity-75"
                   onClick={goToPrevImage}
+                  className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white p-2 rounded-full"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M15 19l-7-7 7-7"
-                    />
-                  </svg>
+                  <Image
+                    src="https://res.cloudinary.com/dkqlrnz6r/image/upload/v1732648282/angle_left_solid_1_aff896a75a.webp"
+                    alt="Previous"
+                    width={30}
+                    height={30}
+                    className="w-8 h-8"
+                  />
                 </button>
                 <button
-                  className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white bg-black bg-opacity-50 rounded-full p-2 hover:bg-opacity-75"
                   onClick={goToNextImage}
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white p-2 rounded-full"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9 5l7 7-7 7"
-                    />
-                  </svg>
+                  <Image
+                    src="https://res.cloudinary.com/dkqlrnz6r/image/upload/v1732648282/angle_right_solid_1_aff896a75a.webp"
+                    alt="Next"
+                    width={30}
+                    height={30}
+                    className="w-8 h-8"
+                  />
                 </button>
               </div>
             </div>

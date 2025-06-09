@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import Image from "next/image";
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -23,14 +24,14 @@ function CharityEvent() {
     {
       children: [
         {
-          text: "We specialize in planning and executing professional corporate events that align with your brand and business goals. From team-building retreats to formal galas, we ensure every detail reflects your company’s values.",
+          text: "We specialize in planning and executing professional corporate events that align with your brand and business goals. From team-building retreats to formal galas, we ensure every detail reflects your company's values.",
         },
       ],
     },
     {
       children: [
         {
-          text: "Our corporate event planning process starts with understanding your company’s culture, objectives, and audience. We focus on delivering events that not only achieve your business goals but also leave a lasting impression on attendees.",
+          text: "Our corporate event planning process starts with understanding your company's culture, objectives, and audience. We focus on delivering events that not only achieve your business goals but also leave a lasting impression on attendees.",
         },
       ],
     },
@@ -91,10 +92,13 @@ function CharityEvent() {
       <section className="hero-section relative w-full h-[50vh] pt-20">
         <div className="relative w-full h-full">
           {/* Background image */}
-          <img
+          <Image
             src="/aboutEvent/bg.webp"
             alt="background"
-            className="absolute top-0 left-0 w-full h-full object-cover z-0"
+            fill
+            priority
+            className="object-cover z-0"
+            sizes="100vw"
           />
 
           {/* Text overlay */}
@@ -111,11 +115,13 @@ function CharityEvent() {
         <div className="w-[96%] lg:w-[70%] pb-10 mx-auto shadow-lg dark:border border-[rgba(255,255,255,0.6)]">
           {/* Service Image */}
           <div>
-            <div className="h-[50%]">
-              <img
+            <div className="relative h-[400px]">
+              <Image
                 src={serviceImage.url}
                 alt={serviceImage.alternativeText}
-                className="w-full h-[400px] object-cover"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 70vw, 70vw"
               />
             </div>
           </div>
@@ -152,15 +158,15 @@ function CharityEvent() {
                   {galleryImages.map((image, index) => (
                     <SwiperSlide key={index}>
                       <div
-                        className="relative group cursor-pointer"
+                        className="relative group cursor-pointer h-[300px]"
                         onClick={() => openLightbox(image)}
                       >
-                        <img
+                        <Image
                           src={image}
                           alt="Gallery Image"
-                          width={500}
-                          height={300}
-                          className="rounded-lg shadow-lg dark:border dark:border-white w-full h-full object-cover group-hover:opacity-75"
+                          fill
+                          className="rounded-lg shadow-lg dark:border dark:border-white object-cover group-hover:opacity-75"
+                          sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 33vw"
                         />
                         <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                           <span className="text-white font-bold text-lg">
@@ -177,40 +183,54 @@ function CharityEvent() {
               {selectedImage && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
                   <div className="relative w-[85%] h-[85%]">
-                    <img
+                    <Image
                       src={selectedImage}
                       alt="Selected"
-                      className="rounded-lg object-cover"
+                      fill
+                      className="rounded-lg object-contain"
+                      sizes="85vw"
                     />
                   </div>
 
                   {/* Close Button */}
-                  <img
-                    src="https://res.cloudinary.com/dkqlrnz6r/image/upload/v1732648286/x_solid_1_1_328c7cb152.svg"
-                    alt="Close"
+                  <button
                     onClick={closeLightbox}
-                    width={40}
-                    height={40}
-                    className="absolute top-6 right-6 hover:cursor-pointer bg-white py-3 px-3 rounded-full"
-                  />
+                    className="absolute top-6 right-6 hover:cursor-pointer bg-white p-3 rounded-full"
+                  >
+                    <Image
+                      src="https://res.cloudinary.com/dkqlrnz6r/image/upload/v1732648286/x_solid_1_1_328c7cb152.svg"
+                      alt="Close"
+                      width={40}
+                      height={40}
+                      className="w-10 h-10"
+                    />
+                  </button>
 
                   {/* Prev/Next Buttons */}
-                  <img
-                    src="https://res.cloudinary.com/dkqlrnz6r/image/upload/v1732648282/angle_left_solid_1_aff896a75a.webp"
+                  <button
                     onClick={goToPrevImage}
-                    width={40}
-                    height={40}
-                    alt="Previous"
-                    className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white text-black p-2 rounded-lg hover:cursor-pointer"
-                  />
-                  <img
-                    src="https://res.cloudinary.com/dkqlrnz6r/image/upload/v1732648282/angle_right_solid_1_6d6e7dbde6.webp"
-                    alt="Next"
+                    className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white p-2 rounded-full"
+                  >
+                    <Image
+                      src="https://res.cloudinary.com/dkqlrnz6r/image/upload/v1732648282/angle_left_solid_1_aff896a75a.webp"
+                      alt="Previous"
+                      width={30}
+                      height={30}
+                      className="w-8 h-8"
+                    />
+                  </button>
+                  <button
                     onClick={goToNextImage}
-                    height={40}
-                    width={40}
-                    className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white text-black p-2 rounded-lg hover:cursor-pointer"
-                  />
+                    className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white p-2 rounded-full"
+                  >
+                    <Image
+                      src="https://res.cloudinary.com/dkqlrnz6r/image/upload/v1732648282/angle_right_solid_1_aff896a75a.webp"
+                      alt="Next"
+                      width={30}
+                      height={30}
+                      className="w-8 h-8"
+                    />
+                  </button>
                 </div>
               )}
             </section>

@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useCallback, useMemo } from "react";
+import Image from "next/image";
 import PropertyFooter from "@/components/PropertyFooter";
 import PropertyHeader from "@/components/PropertyHeader";
 import { Button } from "@/components/ui/button";
@@ -215,31 +216,40 @@ const PropertyHome = React.memo(function PropertyHome() {
 
       <PropertyHeader />
       <Toaster position="top-right" reverseOrder={false} />
-      <header
-        className="relative w-full h-[70vh] flex justify-center items-center bg-fixed bg-cover bg-center"
-        style={{ backgroundImage: `url('${mockHomeData.hero.backgroundImage}')` }}>
-        <div className="absolute inset-0 bg-black opacity-70"></div>
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={titleSlide}
-          className="relative z-10 text-center px-4 flex flex-col items-center justify-center text-white"
-        >
-          <h3 className="text-4xl md:text-6xl font-bold mb-2">
-            {mockHomeData.hero.title}
-          </h3>
-          <p className="text-lg md:text-xl mb-8">
-            {mockHomeData.hero.subtitle}
-          </p>
-          <Button
-            onClick={() => window.location.href = '/property/listings'}
-            className="bg-[#137a70] hover:bg-[#0f5d56] text-white px-8 py-6 text-lg"
-          >
-            View All Properties
-          </Button>
-        </motion.div>
-      </header>
+      <section className="relative w-full h-[80vh]">
+        <div className="relative w-full h-full">
+          <Image
+            src={mockHomeData.hero.backgroundImage}
+            alt="Luxury Living Background"
+            fill
+            priority
+            className="object-cover"
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+            <div className="text-center text-white">
+              <motion.h1
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={titleSlide}
+                className="text-4xl md:text-5xl font-bold mb-4"
+              >
+                {mockHomeData.hero.title}
+              </motion.h1>
+              <motion.p
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={titleSlide}
+                className="text-xl md:text-2xl"
+              >
+                {mockHomeData.hero.subtitle}
+              </motion.p>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <motion.div
         initial="hidden"
@@ -383,66 +393,51 @@ const PropertyHome = React.memo(function PropertyHome() {
       </section>
 
       {/* About Us Section */}
-      <section className="py-16 bg-white dark:bg-[#1f2937]">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row items-center gap-8">
-            <div className="w-full md:w-1/2">
-              <img
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div className="relative h-[400px]">
+              <Image
                 src={mockHomeData.aboutUs.image}
                 alt="About Us"
-                className="w-full h-auto rounded-lg shadow-lg"
+                fill
+                className="object-cover rounded-lg shadow-xl"
+                sizes="(max-width: 768px) 100vw, 50vw"
               />
             </div>
-            <div className="w-full md:w-1/2">
-              <h2 className="text-3xl font-bold mb-4 dark:text-white">
-                {mockHomeData.aboutUs.title}
-              </h2>
-              <p className="text-gray-600 dark:text-gray-300">
-                {mockHomeData.aboutUs.description}
-              </p>
+            <div>
+              <h2 className="text-3xl font-bold mb-4">{mockHomeData.aboutUs.title}</h2>
+              <p className="text-gray-600">{mockHomeData.aboutUs.description}</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Partners Section */}
-      <section className="py-16 bg-gray-50 dark:bg-[#1f2937]">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-8 dark:text-white">
-            {mockHomeData.partners.title}
-          </h2>
-          <Swiper
-            slidesPerView={3}
-            spaceBetween={30}
-            autoplay={{ delay: 3000 }}
-            loop={true}
-            modules={[Autoplay]}
-            breakpoints={{
-              320: { slidesPerView: 1, spaceBetween: 20 },
-              640: { slidesPerView: 2, spaceBetween: 20 },
-              1024: { slidesPerView: 3, spaceBetween: 30 },
-            }}
-            className="w-full"
-          >
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-center mb-12">{mockHomeData.partners.title}</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {mockHomeData.partners.logos.map((logo, index) => (
-              <SwiperSlide key={index}>
-                <motion.div
-                  custom={index}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  variants={logoVariants}
-                  className="flex justify-center items-center"
-                >
-                  <img
-                    src={logo.url}
-                    alt={logo.alt}
-                    className="w-32 h-32 object-contain"
-                  />
-                </motion.div>
-              </SwiperSlide>
+              <motion.div
+                key={index}
+                custom={index}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={logoVariants}
+                className="relative h-32"
+              >
+                <Image
+                  src={logo.url}
+                  alt={logo.alt}
+                  fill
+                  className="object-contain"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 33vw"
+                />
+              </motion.div>
             ))}
-          </Swiper>
+          </div>
         </div>
       </section>
 
